@@ -1,0 +1,228 @@
+[
+  {
+    "offer": [
+      {
+        "name": "DOM HOTELS",
+        "description": "Book Yours Kashmir Holidays Now!",
+        "image": "https://images.thrillophilia.com/image/upload/s--kmjyV8C0--/c_fill,g_auto,h_600,q_auto,w_975/f_auto,fl_strip_profile/v1/images/photos/000/082/497/original/1634534424_radisson-blu-resort-maldives.jpg.jpg",
+        "discount": "With up to 25% instant saving* on HDFC Credit Cards.",
+        "coupon": "Code: MMTICICITO",
+        "details": "View Details"
+      },
+      {
+        "name": "INTL FLIGHTS",
+        "description": "Plan a Luxurious Break @ Oberoi Hotels & Resort",
+        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSdPc3tF_lH3NQ6H6qsNW-BcOOvMp23ypFTEg&usqp=CAU",
+        "discount": "With up to 12% instant saving* on ICICI Credit Cards",
+        "coupon": "Code: MMTICICITO",
+        "details": "View Details"
+      },
+      {
+        "name": "HOLIDAYS",
+        "description": "ALERT: Thailand Eases Restrictions",
+        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSdPc3tF_lH3NQ6H6qsNW-BcOOvMp23ypFTEg&usqp=CAU",
+        "discount": "With up to 20% instant saving* on ICICI Credit Cards",
+        "coupon": "Code: MMTICICITO",
+        "details": "View Details"
+      },
+      {
+        "name": "ACTIVITIES",
+        "description": "Book Yours Kashmir Holidays Now!",
+        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQLAoUame8ygFmAFbWxWJg255-K_Ik020jFFQ&usqp=CAU",
+        "discount": "With up to 32% instant saving* on ICICI Credit Cards",
+        "coupon": "Code: MMTICICITO",
+        "details": "View Details"
+      },
+      {
+        "name": "HOLIDAYS",
+        "description": "Flat 20% OFF* on Premium Villas by SaffronStays!",
+        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQLAoUame8ygFmAFbWxWJg255-K_Ik020jFFQ&usqp=CAU",
+        "discount": "With up to 15% instant saving* on ICICI Credit Cards",
+        "coupon": "Code: MMTICICITO",
+        "details": "View Details"
+      },
+      {
+        "name": "ACTIVITIES",
+        "description": "ALERT: Thailand Eases Restrictions",
+        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQpTlMUsfSJFzMJDZFmG_F4suigoSUneKsYcw&usqp=CAU",
+        "discount": "With up to 10% instant saving* on HDFC Credit Cards",
+        "coupon": "Code: MMTICICITO",
+        "details": "View Details"
+      }
+    ]
+  },
+  {
+    "download": {
+      "name": "Download App Now !",
+      "getApp": "Get App Link",
+      "moreWays": "MORE WAYS TO GET THE APP",
+      "description": "Get India's #1 travel super app, join 100 Million+ happy travellers!",
+      "qrImage": "https://www.apkmonk.com/share/qr/com.makemytrip/",
+      "playStoreImg": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQr2X7Xig2brF-hywilwCsGR2LfOg-KenWv0jPHiTi4ELZK6KShHWyycFxPHfnT-eFQP9I&usqp=CAU",
+      "useWelcomeCode": " Use code WELCOMENEWUSER and get upto Rs 1200 off on your first domestic flight booking"
+    }
+  },
+  {
+    "flight": [
+      {
+        "from": "Amritsar",
+        "fromAirport": "",
+        "name": "Vistara",
+        "image": "https://pbs.twimg.com/media/B3B6A-7CUAAjarl.jpg",
+        "price": "8,089",
+        "to": "Punjab",
+        "date": "26 April",
+        "fare": [
+          "regular",
+          "armed forces",
+          "student",
+          "senior citizen",
+          "double seat"
+        ]
+      },
+      {
+        "name": "SpiceJet",
+        "image": "https://aviationscoop.com/wp-content/uploads/2018/09/spicejet-spicengage-inflight-entertainment-new-for-flyers-1200x900.jpg",
+        "price": "5,849",
+        "from": "Delhi",
+        "to": "Mumbai",
+        "date": "26 April",
+        "fare": [
+          "regular",
+          "armed forces",
+          "student",
+          "senior citizen",
+          "double seat"
+        ]
+      },
+      {
+        "from": "Panipat",
+        "name": "IndiGo",
+        "image": "https://logodix.com/logo/831606.png",
+        "price": "6,450",
+        "to": "Gujrat",
+        "date": "26 April",
+        "fare": [
+          "regular",
+          "armed forces",
+          "student",
+          "senior citizen",
+          "double seat"
+        ]
+      },
+
+      {
+        "from": "Delhi",
+        "name": "GoFirst",
+        "image": "https://www.mumbaiairport.com/images/airlines17/go-first.png",
+        "price": "7,319",
+        "to": "Bihar",
+        "date": "26 April",
+        "fare": [
+          "regular",
+          "armed forces",
+          "student",
+          "senior citizen",
+          "double seat"
+        ]
+      },
+      {
+        "from": "Delhi",
+        "name": "GoFirst",
+        "image": "https://www.mumbaiairport.com/images/airlines17/go-first.png",
+        "price": "7,319",
+        "to": "Bihar",
+        "date": "26 April",
+        "fare": [
+          "regular",
+          "armed forces",
+          "student",
+          "senior citizen",
+          "double seat"
+        ]
+      }
+    ]
+  },
+  {
+    "travelTags": [
+      {
+        "name": "Flight",
+        "tag": "fa-solid fa-plane-departure"
+      },
+      {
+        "name": "Hotels",
+        "tag": "fa-solid fa-hotel"
+      },
+      {
+        "name": "Homestays",
+        "tag": "fa-solid fa-house"
+      },
+      {
+        "name": "Holiday Packages",
+        "tag": "fa-solid fa-dungeon"
+      },
+      {
+        "name": "Trains",
+        "tag": "fa-solid fa-train-subway"
+      },
+      {
+        "name": "Buses",
+        "tag": "fa-solid fa-bus"
+      },
+      {
+        "name": "Cabs",
+        "tag": "fa-solid fa-taxi"
+      },
+      {
+        "name": "Visa",
+        "tag": "fa-brands fa-cc-visa"
+      },
+      {
+        "name": "Charter",
+        "tag": "fa-solid fa-jet-fighter-up"
+      },
+      {
+        "name": "Activities",
+        "tag": "fa-solid fa-person-hiking"
+      }
+    ]
+  },
+  {
+    "internationalFlight": [
+      {
+        "name": "International Flights Now Open",
+        "book": "Call 0124-4628747 for booking assistance",
+        "tag": "fa-solid fa-plane-departure"
+      },
+      {
+        "name": "We are now available in hindi",
+        "book": "Call 0124-4628747 for booking assistance",
+        "tag": "fa-solid fa-plane-departure"
+      },
+      {
+        "name": "Flight booking impacted due to COVID-19?",
+        "book": "Call 0124-4628747 for booking assistance",
+        "tag": "fa-solid fa-plane-departure"
+      }
+    ]
+  },
+  {
+    "fareType": [
+      {
+        "name": "International Flights Now Open",
+        "book": "Call 0124-4628747 for booking assistance",
+        "tag": "fa-solid fa-plane-departure"
+      },
+      {
+        "name": "We are now available in hindi",
+        "book": "Call 0124-4628747 for booking assistance",
+        "tag": "fa-solid fa-plane-departure"
+      },
+      {
+        "name": "Flight booking impacted due to COVID-19?",
+        "book": "Call 0124-4628747 for booking assistance",
+        "tag": "fa-solid fa-plane-departure"
+      }
+    ]
+  }
+]
