@@ -1,4 +1,37 @@
-function Booking() {
+import { useState } from "react";
+import { connect } from "react-redux";
+import { format } from "date-fns";
+
+function Booking(props) {
+  const [info, setInfo] = useState({
+    firstName: [],
+    lastName: [],
+    email: [],
+    number: [],
+    gender: [],
+  });
+
+  const changeHandler = (e, i) => {
+    const { name, value } = e.target;
+    console.log(name, value);
+    const clonedDetail = [...info[name]];
+    clonedDetail[i] = value;
+    setInfo({ ...info, [name]: clonedDetail });
+  };
+
+  const handleSubmit = (e) => {
+    console.log(info.firstName, info);
+    e.preventDefault();
+    if (
+      info.firstName.length === props.passenger &&
+      info.lastName.length === props.passenger &&
+      info.gender.length === props.passenger &&
+      info.number.length > 0 &&
+      info.email.length > 0
+    )
+      alert(`You Booking Successfull`);
+  };
+
   return (
     <>
       <header className="booking-header">
@@ -13,7 +46,7 @@ function Booking() {
                 `Seats & Meals`,
                 `Add-ons`,
               ].map((elm, i) => {
-                return <li>{elm}</li>;
+                return <li key={i}>{elm}</li>;
               })}
             </ul>
           </nav>
@@ -25,10 +58,10 @@ function Booking() {
                 <div className="flex space-between margin">
                   <div>
                     <h2>
-                      New Delhi <i class="fa-solid fa-arrow-right-long"></i>{" "}
-                      Mumbai
+                      {props.from} <i class="fa-solid fa-arrow-right-long"></i>
+                      {props.to}
                     </h2>
-                    <p>Tuesday,Apr 26 </p>
+                    <p>{format(props.date || new Date(), "E, MMM d yyyy")} </p>
                   </div>
                   <div className="cancle">
                     <p>CANCELLATION FEES APPLY</p>
@@ -38,11 +71,8 @@ function Booking() {
                 <div className="flex space-between margin">
                   <div>
                     <div className="indigo-center">
-                      <img
-                        src="https://logodix.com/logo/831606.png"
-                        alt="indigo"
-                      />
-                      <span className="bold">IndiGo</span>
+                      <img src={props.flightImage} alt="indigo" />
+                      <span className="bold">{props.flightName}</span>
                       <span>6E-6261</span>
                     </div>
                   </div>
@@ -55,10 +85,10 @@ function Booking() {
                 <div className="flex space-between flight-from">
                   <div className="">
                     <div className="flex">
-                      <span className="bold">19:45 -</span>
+                      <span className="bold">17:18 -</span>
                       <p>
-                        <span className="bold"> New Delhi</span> . Indira Gandhi
-                        International Airport, Terminal 1
+                        <span className="bold"> {props.from}</span> . Indira
+                        Gandhi International Airport, Terminal 1
                       </p>
                     </div>
                     <div className="flight-time">
@@ -67,24 +97,18 @@ function Booking() {
                     <div className="flex">
                       <span className="bold">19:45 -</span>
                       <p>
-                        <span className="bold">New Delhi</span> . Indira Gandhi
+                        <span className="bold">{props.to}</span> . Indira Gandhi
                         International Airport, Terminal 1
                       </p>
                     </div>
                   </div>
                   <div className="flex w-45 flight-from-box2">
-                    <div>
-                      <span>Baggage</span>
-                      <p className="bold">ADULT</p>
-                    </div>
-                    <div>
-                      <span>Baggage</span>
-                      <p className="bold">ADULT</p>
-                    </div>
-                    <div>
-                      <span>Baggage</span>
-                      <p className="bold">ADULT</p>
-                    </div>
+                    {Array.from(new Array(3)).map((_, i) => (
+                      <div>
+                        <span>Baggage</span>
+                        <p className="bold">ADULT</p>
+                      </div>
+                    ))}
                   </div>
                 </div>
               </div>
@@ -114,25 +138,65 @@ function Booking() {
                   </p>
                 </div>
                 <form className="user-details-form">
-                  <div className="form-control">
-                    <input type="text" placeholder="First Name" />
-                    <input type="text" placeholder="Last Name" />
-                  </div>
-                  <div className="flex">
-                    <div>
-                      <input type="checkbox" />
-                      <span>MALE</span>
+                  {Array.from(new Array(props.passenger)).map((_, i) => (
+                    <div key={i} className="border-b margin-b padding-b">
+                      <div className="form-control">
+                        <input
+                          name="firstName"
+                          type="text"
+                          value={info.firstName[i] || ""}
+                          onChange={(e) => changeHandler(e, i)}
+                          placeholder="First Name"
+                        />
+                        <input
+                          name="lastName"
+                          type="text"
+                          value={info.lastName[i] || ""}
+                          onChange={(e) => changeHandler(e, i)}
+                          placeholder="Last Name"
+                        />
+                      </div>
+                      <div className="flex">
+                        <div>
+                          <input
+                            name="gender"
+                            type="radio"
+                            checked={info.gender[i] === "male"}
+                            value="male"
+                            onClick={(e) => changeHandler(e, i)}
+                          />
+                          <span>MALE</span>
+                        </div>
+                        <div>
+                          <input
+                            name="gender"
+                            type="radio"
+                            checked={info.gender[i] === "female"}
+                            value="female"
+                            onClick={(e) => changeHandler(e, i)}
+                          />
+                          <span>FEMALE</span>
+                        </div>
+                      </div>
+                      <div className="form-control">
+                        <input
+                          name="number"
+                          type="number"
+                          value={info.number[i] || ""}
+                          onChange={(e) => changeHandler(e, i)}
+                          placeholder="Mobile No"
+                        />
+                        <input
+                          name="email"
+                          type="email"
+                          value={info.email[i] || ""}
+                          onChange={(e) => changeHandler(e, i)}
+                          placeholder="Email"
+                        />
+                      </div>
                     </div>
-                    <div>
-                      <input type="checkbox" />
-                      <span>FEMALE</span>
-                    </div>
-                  </div>
-                  <div className="form-control">
-                    <input type="number" placeholder="Mobile No" />
-                    <input type="email" placeholder="Email" />
-                  </div>
-                  <button>CONTINUE</button>
+                  ))}
+                  <button onClick={handleSubmit}>CONTINUE</button>
                 </form>
               </div>
             </div>
@@ -144,26 +208,30 @@ function Booking() {
                     <i class="fa-solid fa-circle-plus"></i>{" "}
                     <span className="bold">Base Fare</span>
                   </div>
-                  <p>$543</p>
+                  <p>
+                    ₹{props.price} * {props.passenger}
+                  </p>
                 </li>
                 <li className="flex space-between">
                   <div>
                     <i class="fa-solid fa-circle-plus"></i>
                     <span className="bold"> Fee & Surcharges</span>
                   </div>
-                  <p>$543</p>
+                  <p>₹1000</p>
                 </li>
                 <li className="flex space-between">
                   <div>
                     <i class="fa-solid fa-circle-minus"></i>
                     <span className="bold"> Other Services</span>
                   </div>
-                  <p>$543</p>
+                  <p>₹0</p>
                 </li>
               </ul>
               <div className="flex space-between total-fare">
                 <p className="bold">Total Amount</p>
-                <p className="bold">$543</p>
+                <p className="bold">
+                  ₹{Number(props.price) * Number(props.passenger) + 1000}
+                </p>
               </div>
             </div>
           </div>
@@ -172,4 +240,7 @@ function Booking() {
     </>
   );
 }
-export default Booking;
+
+const mapStateToProps = (state) => ({ ...state });
+
+export default connect(mapStateToProps)(Booking);

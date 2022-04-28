@@ -1,4 +1,4 @@
-import data from "../dummy/data.json";
+import data from "../data/data.json";
 
 function Offer() {
   let offer = data[0].offer;

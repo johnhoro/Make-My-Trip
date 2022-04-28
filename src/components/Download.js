@@ -1,4 +1,4 @@
-import data from "../dummy/data.json";
+import data from "../data/data.json";
 
 function Download() {
   let download = data[1].download;

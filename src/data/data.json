@@ -69,7 +69,7 @@
         "fromAirport": "",
         "name": "Vistara",
         "image": "https://pbs.twimg.com/media/B3B6A-7CUAAjarl.jpg",
-        "price": "8,089",
+        "price": 8089,
         "to": "Punjab",
         "date": "26 April",
         "fare": [
@@ -83,7 +83,7 @@
       {
         "name": "SpiceJet",
         "image": "https://aviationscoop.com/wp-content/uploads/2018/09/spicejet-spicengage-inflight-entertainment-new-for-flyers-1200x900.jpg",
-        "price": "5,849",
+        "price": 5849,
         "from": "Delhi",
         "to": "Mumbai",
         "date": "26 April",
@@ -99,7 +99,7 @@
         "from": "Panipat",
         "name": "IndiGo",
         "image": "https://logodix.com/logo/831606.png",
-        "price": "6,450",
+        "price": 6450,
         "to": "Gujrat",
         "date": "26 April",
         "fare": [
@@ -115,7 +115,7 @@
         "from": "Delhi",
         "name": "GoFirst",
         "image": "https://www.mumbaiairport.com/images/airlines17/go-first.png",
-        "price": "7,319",
+        "price": 7319,
         "to": "Bihar",
         "date": "26 April",
         "fare": [
@@ -130,7 +130,7 @@
         "from": "Delhi",
         "name": "GoFirst",
         "image": "https://www.mumbaiairport.com/images/airlines17/go-first.png",
-        "price": "7,319",
+        "price": 7319,
         "to": "Bihar",
         "date": "26 April",
         "fare": [

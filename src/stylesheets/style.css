@@ -167,8 +167,30 @@ table {
 .w-45 {
   width: 45%;
 }
+.w-170 {
+  width: 170px;
+  height: 100px;
+}
+.w-150 {
+  width: 150px;
+}
 .pointer {
   cursor: pointer;
+}
+.padding-1 {
+  padding: 1rem;
+}
+.border-b {
+  border-bottom: 1px solid rgb(45, 192, 140);
+}
+.margin-t {
+  margin-top: 1rem;
+}
+.margin-b {
+  margin-bottom: 1rem;
+}
+.padding-b {
+  padding-bottom: 1rem;
 }
 
 body {
@@ -308,6 +330,11 @@ body {
 
 .flight-search > div {
   padding: 1rem;
+}
+.return-box span {
+  font-size: 0.7rem;
+  font-weight: bold;
+  color: rgb(136, 135, 135);
 }
 .border {
   border-left: 1px solid #e7e7e7;
@@ -790,6 +817,7 @@ footer {
   font-weight: 700;
 }
 .booking-header nav ul li {
+  font-size: 0.7rem;
   margin-left: 1rem;
   color: hsla(0, 0%, 100%, 0.5);
 }

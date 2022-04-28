@@ -1,9 +1,26 @@
-import { NavLink } from "react-router-dom";
-import data from "../dummy/data.json";
+import { useHistory } from "react-router-dom";
+import data from "../data/data.json";
+import { connect } from "react-redux";
+import { format } from "date-fns";
+import { ticketPrice } from "../redux/action";
+import { flightImage } from "../redux/action";
+import { flightName } from "../redux/action";
 
-function Flight() {
+function Flight(props) {
   let flights = data[2].flight;
-  console.log(flights);
+  const history = useHistory();
+
+  if (!(props.from && props.to && props.date)) {
+    history.push("/");
+  }
+
+  const bookNowHandler = (price, name, image) => {
+    props.dispatch(ticketPrice(price));
+    props.dispatch(flightName(name));
+    props.dispatch(flightImage(image));
+    history.push("/booking");
+  };
+
   return (
     <>
       <header className="flight-header">
@@ -16,15 +33,15 @@ function Flight() {
               </li>
               <li>
                 <p>FROM</p>
-                <span>NEW Delhi,India</span>
+                <span>{props.from}</span>
               </li>
               <li>
                 <p>TO</p>
-                <span>MUMBAI,INDIA</span>
+                <span>{props.to}</span>
               </li>
               <li>
                 <p>DEPART</p>
-                <span>Tue,Apr 27,2022</span>
+                <span>{format(props.date || new Date(), "E, MMM d yyyy")}</span>
               </li>
               <li>
                 <p>RETURN</p>
@@ -43,41 +60,22 @@ function Flight() {
             <aside className="flight-col1">
               <div>
                 <h2>Popular Filter</h2>
-                <div className="flex space-between popular-filter">
-                  <div>
-                    <input type="checkbox" />
-                    <span>Refundable Fares(41)</span>
+                {Array.from(new Array(7)).map((_, i) => (
+                  <div className="flex space-between popular-filter">
+                    <div>
+                      <input type="checkbox" />
+                      <span>Refundable Fares(41)</span>
+                    </div>
+                    <p>234324</p>
                   </div>
-                  <p>234324</p>
-                </div>
-                <div className="flex space-between popular-filter">
-                  <div>
-                    <input type="checkbox" />
-                    <span>Refundable Fares(41)</span>
-                  </div>
-                  <p>234324</p>
-                </div>
-                <div className="flex space-between popular-filter">
-                  <div>
-                    <input type="checkbox" />
-                    <span>Refundable Fares(41)</span>
-                  </div>
-                  <p>234324</p>
-                </div>
-                <div className="flex space-between popular-filter">
-                  <div>
-                    <input type="checkbox" />
-                    <span>Refundable Fares(41)</span>
-                  </div>
-                  <p>234324</p>
-                </div>
+                ))}
               </div>
               <div className="price-range">
                 <h2>One Way Price</h2>
                 <input type="range" width="100px" />
                 <div className="flex space-between">
-                  <span>$2283</span>
-                  <span>$432</span>
+                  <span>₹2283</span>
+                  <span>₹432</span>
                 </div>
               </div>
             </aside>
@@ -89,34 +87,18 @@ function Flight() {
                     <i class="fa-solid fa-chevron-left"></i>
                   </div>
                   <div className="flight-by-date-box flex">
-                    <div className="flight-by-date select-box">
-                      <p className="bold">Tue , Apr 26</p>
-                      <p>$ 762</p>
-                    </div>
-                    <div className="flight-by-date">
-                      <p>Tue , Apr 26</p>
-                      <p>$ 762</p>
-                    </div>
-                    <div className="flight-by-date">
-                      <p>Tue , Apr 26</p>
-                      <p>$ 762</p>
-                    </div>
-                    <div className="flight-by-date">
-                      <p>Tue , Apr 26</p>
-                      <p>$ 762</p>
-                    </div>
-                    <div className="flight-by-date">
-                      <p>Tue , Apr 26</p>
-                      <p>$ 762</p>
-                    </div>
-                    <div className="flight-by-date">
-                      <p>Tue , Apr 26</p>
-                      <p>$ 762</p>
-                    </div>
-                    <div className="flight-by-date">
-                      <p>Tue , Apr 26</p>
-                      <p>$ 762</p>
-                    </div>
+                    {Array.from(new Array(7)).map((_, i) => (
+                      <div
+                        className={`flight-by-date ₹{
+                          i === 0 ? "select-box" : ""
+                        }`}
+                      >
+                        <p className="bold">
+                          {format(props.date || new Date(), "E, MMM d")}
+                        </p>
+                        <p>₹ 5055</p>
+                      </div>
+                    ))}
                   </div>
                   <div className="side-btn">
                     <i class="fa-solid fa-chevron-right"></i>
@@ -134,7 +116,7 @@ function Flight() {
                 <div className="select-flight-box">
                   {flights.map((flight, i) => {
                     return (
-                      <div className="all-flight">
+                      <div className="all-flight" key={i}>
                         <ul className="flex space-between">
                           <li className="indigo-center">
                             <img src={flight.image} alt="indigo" />
@@ -142,7 +124,7 @@ function Flight() {
                           </li>
                           <li>
                             <span className="bold">15:25</span>
-                            <p>{flight.from}</p>
+                            <p>{props.from}</p>
                           </li>
                           <li className="non-stop">
                             <p>02h 15m</p>
@@ -150,7 +132,7 @@ function Flight() {
                           </li>
                           <li>
                             <span className="bold">15:25</span>
-                            <p>{flight.to}</p>
+                            <p>{props.to}</p>
                           </li>
                           <li className="flight-price flex">
                             <img src="/rupee.png" alt="rupee" />
@@ -158,9 +140,20 @@ function Flight() {
                           </li>
                         </ul>
                         <div className="flex justify-end">
-                          <NavLink className="NavLink" to="/booking">
-                            <button className="margin-r">Book Now</button>
-                          </NavLink>
+                          <button
+                            className="margin-r"
+                            onClick={() =>
+                              bookNowHandler(
+                                flight.price,
+                                flight.name,
+                                flight.image,
+                                flight.from,
+                                flight.to
+                              )
+                            }
+                          >
+                            Book Now
+                          </button>
                         </div>
                       </div>
                     );
@@ -175,4 +168,12 @@ function Flight() {
   );
 }
 
-export default Flight;
+function mapStateToProps(state) {
+  return {
+    from: state.from,
+    to: state.to,
+    date: state.date,
+  };
+}
+
+export default connect(mapStateToProps)(Flight);

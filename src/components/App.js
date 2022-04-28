@@ -6,7 +6,7 @@ import Header from "./Header";
 import Booking from "./Booking";
 import NotFound from "./NotFound";
 import { Provider } from "react-redux";
-import store from "../store";
+import store from "../redux";
 
 import ErrorBoundry from "./ErrorBoundry";
 function App() {

@@ -1,25 +1,60 @@
-import { useEffect, useState } from "react";
-import data from "../dummy/data.json";
-import { NavLink } from "react-router-dom";
+import { useState } from "react";
+import data from "../data/data.json";
+import { useHistory } from "react-router-dom";
 import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
 import { connect } from "react-redux";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
-import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import { format } from "date-fns";
 
-const options = ["DEL", "MUM"];
+import {
+  fromDestination,
+  toDestination,
+  travelDate,
+  noOfPassenger,
+} from "../redux/action";
+
+const options = ["DEL", "MUM", "PNP", "SMK", "KUK"];
+const traveller = [1, 2, 3, 4];
 
 function Hero(props) {
+  const [isShowFrom, setIsShowFrom] = useState(true);
+  const [isShowTo, setIsShowTo] = useState(true);
+  const [isShowTravlers, setIsShowTravelers] = useState(true);
+  const [isShowDate, setIsShowDate] = useState(true);
+
   const [value, setValue] = useState(options[0]);
   const [inputValue, setInputValue] = useState("");
-  const [date, setDate] = useState(new Date());
 
-  useEffect(() => {});
+  const [value1, setValue1] = useState(options[1]);
+  const [inputValue1, setInputValue1] = useState("");
+
+  const [value2, setValue2] = useState(traveller[0]);
+  const [inputValue2, setInputValue2] = useState("");
+
+  const [date, setDate] = useState(new Date());
+  let ans = format(date, "MMM d E yyyy");
+  console.log(date, ans);
+
+  const history = useHistory();
+
   let travelTags = data[3].travelTags;
-  let flight = data[2].flight[0];
-  console.log(value, inputValue);
+
+  const searchHandler = (e) => {
+    if (value && value1 && date) {
+      props.dispatch(fromDestination(value));
+      props.dispatch(toDestination(value1));
+      props.dispatch(travelDate(date));
+      props.dispatch(noOfPassenger(value2));
+
+      history.push("/flight");
+    }
+
+    return;
+  };
+
   return (
     <>
       <section>
@@ -28,7 +63,7 @@ function Hero(props) {
             <div className="flex hero-nav">
               {travelTags.map((travel, i) => {
                 return (
-                  <div>
+                  <div key={i}>
                     <i class={travel.tag}></i>
                     <p>{travel.name}</p>
                   </div>
@@ -40,7 +75,7 @@ function Hero(props) {
                 <ul className="flex">
                   {[`ONEWAY`, `ROUND TRIP`, `MULTI CITY`].map((elm, i) => {
                     return (
-                      <li className="flex align-center ">
+                      <li className="flex align-center " key={i}>
                         <input
                           type="checkbox"
                           name="checkbox"
@@ -56,12 +91,12 @@ function Hero(props) {
               <div className="flex flight-search">
                 <div
                   className="w-300 pointer"
-                  onMouseLeave={() => props.dispatch({ type: "isShowFrom" })}
+                  onMouseLeave={() => setIsShowFrom(true)}
                 >
-                  {props.showInputFrom ? (
-                    <div onClick={() => props.dispatch({ type: "isShowFrom" })}>
+                  {isShowFrom ? (
+                    <div onClick={() => setIsShowFrom(false)}>
                       <p>FROM</p>
-                      <h1>{flight.from}</h1>
+                      <h1>{value}</h1>
                       <span>DEL,Delhi Airport India</span>
                     </div>
                   ) : (
@@ -87,24 +122,24 @@ function Hero(props) {
 
                 <div
                   className="w-300 border pointer"
-                  onMouseLeave={() => props.dispatch({ type: "isShowTo" })}
+                  onMouseLeave={() => setIsShowTo(true)}
                 >
-                  {props.showInputTo ? (
-                    <div onClick={() => props.dispatch({ type: "isShowTo" })}>
+                  {isShowTo ? (
+                    <div onClick={() => setIsShowTo(false)}>
                       <p>TO</p>
-                      <h1>{flight.to}</h1>
-                      <span>DEL,Delhi Airport India</span>
+                      <h1>{value1}</h1>
+                      <span>MUM,Mumbai Airport India</span>
                     </div>
                   ) : (
                     <Autocomplete
                       fullWidth
-                      value={value}
+                      value={value1}
                       onChange={(event, newValue) => {
-                        setValue(newValue);
+                        setValue1(newValue);
                       }}
-                      inputValue={inputValue}
+                      inputValue={inputValue1}
                       onInputChange={(event, newInputValue) => {
-                        setInputValue(newInputValue);
+                        setInputValue1(newInputValue);
                       }}
                       id="controllable-states-demo"
                       options={options}
@@ -116,20 +151,25 @@ function Hero(props) {
                   )}
                 </div>
 
-                <div className="border pointer">
-                  {props.date ? (
-                    <div>
+                <div
+                  className="border pointer w-150"
+                  onMouseLeave={() => setIsShowDate(true)}
+                >
+                  {isShowDate ? (
+                    <div onClick={() => setIsShowDate(false)}>
                       <p>Departure</p>
                       <span className="flex item-end">
-                        <h1>{flight.data}</h1>
-                        <span className="date">Apr'22</span>
+                        <h1>{format(date, "d")}</h1>
+                        <span className="date">
+                          {" "}
+                          {format(date, "MMM")} {format(date, "yyyy")}
+                        </span>
                       </span>
-                      <span>Tuesday</span>
+                      <span>{format(date, "eeee")}</span>
                     </div>
                   ) : (
                     <LocalizationProvider dateAdapter={AdapterDateFns}>
                       <DesktopDatePicker
-                        label="For desktop"
                         value={date}
                         minDate={new Date("2017-01-01")}
                         onChange={(newValue) => {
@@ -140,19 +180,44 @@ function Hero(props) {
                     </LocalizationProvider>
                   )}
                 </div>
-                <div className="border pointer">
+                <div className="border pointer return-box ">
                   <p>RETURN</p>
                   <span>
                     Tap to add a return <br /> date for bigger discounts
                   </span>
                 </div>
-                <div className="border pointer">
-                  <p> TRAVELLERS & CLASS</p>
-                  <span className="flex item-end">
-                    <h1>1</h1>
-                    <span className="date">Traveller</span>
-                  </span>
-                  <span>Economy/Premium Economy</span>
+                <div
+                  className="border pointer w-170"
+                  onMouseLeave={() => setIsShowTravelers(true)}
+                >
+                  {isShowTravlers ? (
+                    <div onClick={() => setIsShowTravelers(false)}>
+                      <p> TRAVELLERS & CLASS</p>
+                      <span className="flex item-end">
+                        <h1>{value2}</h1>
+                        <span className="date">Traveller</span>
+                      </span>
+                      <span>Economy/Premium Economy</span>
+                    </div>
+                  ) : (
+                    <Autocomplete
+                      fullWidth
+                      value={value2}
+                      onChange={(event, newValue) => {
+                        setValue2(newValue);
+                      }}
+                      inputValue={inputValue2}
+                      onInputChange={(event, newInputValue) => {
+                        setInputValue2(newInputValue);
+                      }}
+                      id="controllable-states-demo"
+                      options={traveller}
+                      sx={{ padding: 0 }}
+                      renderInput={(params) => (
+                        <TextField {...params} label="" />
+                      )}
+                    />
+                  )}
                 </div>
               </div>
               <div className="flex space-between">
@@ -199,9 +264,7 @@ function Hero(props) {
                 </div>
               </div>
               <div className="search-btn">
-                <NavLink className="NavLink" to="/flight">
-                  <button>SEARCH</button>
-                </NavLink>
+                <button onClick={searchHandler}>SEARCH</button>
                 <div className="flex align-center">
                   <i class="fa-solid fa-angles-down"></i>
                   <p>Explore More</p>
@@ -218,8 +281,9 @@ function Hero(props) {
 
 function mapStateToProps(state) {
   return {
-    showInputTo: state.showInputTo,
-    showInputFrom: state.showInputFrom,
+    from: state.from,
+    to: state.to,
+    date: state.date,
   };
 }
 
