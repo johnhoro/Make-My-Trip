@@ -18,6 +18,12 @@ const travelDate = (data) => {
     payload: data,
   };
 };
+const travelReturnDate = (data) => {
+  return {
+    type: "returnDate",
+    payload: data,
+  };
+};
 
 const noOfPassenger = (data) => {
   return {
@@ -46,12 +52,36 @@ const flightImage = (data) => {
   };
 };
 
+const returnTicketPrice = (data) => {
+  return {
+    type: "returnPrice",
+    payload: data,
+  };
+};
+const returnFlightName = (data) => {
+  return {
+    type: "returnFlightName",
+    payload: data,
+  };
+};
+
+const returnFlightImage = (data) => {
+  return {
+    type: "returnFlightImage",
+    payload: data,
+  };
+};
+
 export {
   fromDestination,
   toDestination,
   travelDate,
+  travelReturnDate,
   noOfPassenger,
   ticketPrice,
   flightName,
   flightImage,
+  returnTicketPrice,
+  returnFlightImage,
+  returnFlightName,
 };

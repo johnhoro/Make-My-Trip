@@ -1,5 +1,5 @@
-import { useState } from "react";
-import data from "../data/data.json";
+import { useEffect, useState } from "react";
+import data from "../../data/data.json";
 import { useHistory } from "react-router-dom";
 import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
@@ -13,10 +13,11 @@ import {
   fromDestination,
   toDestination,
   travelDate,
+  travelReturnDate,
   noOfPassenger,
-} from "../redux/action";
+} from "../../redux/action";
 
-const options = ["DEL", "MUM", "PNP", "SMK", "KUK"];
+const options = ["New Delhi", "Mumbai", "Bengaluru", "Chandigarh", "Jharkhand"];
 const traveller = [1, 2, 3, 4];
 
 function Hero(props) {
@@ -24,35 +25,61 @@ function Hero(props) {
   const [isShowTo, setIsShowTo] = useState(true);
   const [isShowTravlers, setIsShowTravelers] = useState(true);
   const [isShowDate, setIsShowDate] = useState(true);
+  const [isShowReturnDate, setIsShowReturnDate] = useState(true);
+  const [isShowReturnDate1, setIsShowReturnDate1] = useState(false);
 
-  const [value, setValue] = useState(options[0]);
-  const [inputValue, setInputValue] = useState("");
+  const [from, setFrom] = useState(options[0]);
+  const [fromInputValue, setFromInputValue] = useState(options[0]);
 
-  const [value1, setValue1] = useState(options[1]);
-  const [inputValue1, setInputValue1] = useState("");
-
-  const [value2, setValue2] = useState(traveller[0]);
-  const [inputValue2, setInputValue2] = useState("");
+  const [to, setTo] = useState(options[1]);
+  const [toInputValue, setToInputValue] = useState("");
 
   const [date, setDate] = useState(new Date());
-  let ans = format(date, "MMM d E yyyy");
-  console.log(date, ans);
+  const [returnDate, setReturnDate] = useState("");
+
+  const [passenger, setPassenger] = useState(traveller[0]);
+  const [passengerInputValue, setPassengerInputValue] = useState(traveller[0]);
 
   const history = useHistory();
 
   let travelTags = data[3].travelTags;
 
-  const searchHandler = (e) => {
-    if (value && value1 && date) {
-      props.dispatch(fromDestination(value));
-      props.dispatch(toDestination(value1));
-      props.dispatch(travelDate(date));
-      props.dispatch(noOfPassenger(value2));
+  useEffect(() => {
+    const ls = localStorage.getItem("flightInfo");
+    if (ls) {
+      const { from, to, date, returnDate, passenger } = JSON.parse(ls);
 
+      setFrom(from);
+      setTo(to);
+      setDate(date || new Date());
+      setReturnDate(returnDate || "");
+      setPassenger(passenger);
+      if (returnDate) {
+        setIsShowReturnDate1(true);
+      }
+    }
+  }, []);
+
+  const searchHandler = (e) => {
+    localStorage.setItem(
+      "flightInfo",
+      JSON.stringify({
+        from,
+        to,
+        passenger,
+        date,
+        returnDate,
+      })
+    );
+    if (from && to && date) {
+      props.dispatch(fromDestination(from));
+      props.dispatch(toDestination(to));
+      props.dispatch(travelDate(date));
+      props.dispatch(travelReturnDate(returnDate));
+      props.dispatch(noOfPassenger(passenger));
+      console.log("Calling");
       history.push("/flight");
     }
-
-    return;
   };
 
   return (
@@ -64,7 +91,7 @@ function Hero(props) {
               {travelTags.map((travel, i) => {
                 return (
                   <div key={i}>
-                    <i class={travel.tag}></i>
+                    <i className={travel.tag}></i>
                     <p>{travel.name}</p>
                   </div>
                 );
@@ -96,19 +123,19 @@ function Hero(props) {
                   {isShowFrom ? (
                     <div onClick={() => setIsShowFrom(false)}>
                       <p>FROM</p>
-                      <h1>{value}</h1>
+                      <h1>{from}</h1>
                       <span>DEL,Delhi Airport India</span>
                     </div>
                   ) : (
                     <Autocomplete
                       fullWidth
-                      value={value}
+                      value={from}
                       onChange={(event, newValue) => {
-                        setValue(newValue);
+                        setFrom(newValue);
                       }}
-                      inputValue={inputValue}
+                      inputValue={fromInputValue}
                       onInputChange={(event, newInputValue) => {
-                        setInputValue(newInputValue);
+                        setFromInputValue(newInputValue);
                       }}
                       id="controllable-states-demo"
                       options={options}
@@ -127,19 +154,19 @@ function Hero(props) {
                   {isShowTo ? (
                     <div onClick={() => setIsShowTo(false)}>
                       <p>TO</p>
-                      <h1>{value1}</h1>
+                      <h1>{to}</h1>
                       <span>MUM,Mumbai Airport India</span>
                     </div>
                   ) : (
                     <Autocomplete
                       fullWidth
-                      value={value1}
+                      value={to}
                       onChange={(event, newValue) => {
-                        setValue1(newValue);
+                        setTo(newValue);
                       }}
-                      inputValue={inputValue1}
+                      inputValue={toInputValue}
                       onInputChange={(event, newInputValue) => {
-                        setInputValue1(newInputValue);
+                        setToInputValue(newInputValue);
                       }}
                       id="controllable-states-demo"
                       options={options}
@@ -159,19 +186,19 @@ function Hero(props) {
                     <div onClick={() => setIsShowDate(false)}>
                       <p>Departure</p>
                       <span className="flex item-end">
-                        <h1>{format(date, "d")}</h1>
+                        <h1>{format(new Date(date || null), "d")}</h1>
                         <span className="date">
-                          {" "}
-                          {format(date, "MMM")} {format(date, "yyyy")}
+                          {format(new Date(date || null), "MMM")}{" "}
+                          {format(new Date(date || null), "yyyy")}
                         </span>
                       </span>
-                      <span>{format(date, "eeee")}</span>
+                      <span>{format(new Date(date || null), "eeee")}</span>
                     </div>
                   ) : (
                     <LocalizationProvider dateAdapter={AdapterDateFns}>
                       <DesktopDatePicker
                         value={date}
-                        minDate={new Date("2017-01-01")}
+                        minDate={date}
                         onChange={(newValue) => {
                           setDate(newValue);
                         }}
@@ -180,11 +207,66 @@ function Hero(props) {
                     </LocalizationProvider>
                   )}
                 </div>
-                <div className="border pointer return-box ">
-                  <p>RETURN</p>
-                  <span>
-                    Tap to add a return <br /> date for bigger discounts
-                  </span>
+                <div
+                  className="border pointer return-box w-150"
+                  onMouseLeave={() => setIsShowReturnDate(true)}
+                >
+                  {isShowReturnDate ? (
+                    <div
+                      onClick={() => {
+                        setIsShowReturnDate(false);
+                        setIsShowReturnDate1(true);
+                      }}
+                    >
+                      <p>RETURN</p>
+                      {isShowReturnDate1 && returnDate ? (
+                        <div className="flex space-between">
+                          <div>
+                            <span className="flex item-end">
+                              <h1>
+                                {returnDate &&
+                                  format(new Date(returnDate || null), "d")}
+                              </h1>
+                              <span className="date">
+                                {returnDate &&
+                                  format(new Date(returnDate || null), "MMM")}
+                                {returnDate &&
+                                  format(new Date(returnDate || null), "yyyy")}
+                              </span>
+                            </span>
+                            <span>
+                              {returnDate &&
+                                format(new Date(returnDate || null), "eeee")}
+                            </span>
+                          </div>
+                          <p
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              setIsShowReturnDate1(false);
+                              setReturnDate("");
+                            }}
+                          >
+                            ❌
+                          </p>
+                        </div>
+                      ) : (
+                        <span>
+                          Tap to add a return <br /> date for bigger discounts
+                        </span>
+                      )}
+                    </div>
+                  ) : (
+                    <LocalizationProvider dateAdapter={AdapterDateFns}>
+                      <DesktopDatePicker
+                        value={returnDate}
+                        minDate={date}
+                        onChange={(newValue) => {
+                          setReturnDate(newValue);
+                        }}
+                        renderInput={(params) => <TextField {...params} />}
+                      />
+                    </LocalizationProvider>
+                  )}
                 </div>
                 <div
                   className="border pointer w-170"
@@ -194,7 +276,7 @@ function Hero(props) {
                     <div onClick={() => setIsShowTravelers(false)}>
                       <p> TRAVELLERS & CLASS</p>
                       <span className="flex item-end">
-                        <h1>{value2}</h1>
+                        <h1>{passenger}</h1>
                         <span className="date">Traveller</span>
                       </span>
                       <span>Economy/Premium Economy</span>
@@ -202,13 +284,13 @@ function Hero(props) {
                   ) : (
                     <Autocomplete
                       fullWidth
-                      value={value2}
+                      value={passenger}
                       onChange={(event, newValue) => {
-                        setValue2(newValue);
+                        setPassenger(newValue);
                       }}
-                      inputValue={inputValue2}
+                      inputValue={passengerInputValue}
                       onInputChange={(event, newInputValue) => {
-                        setInputValue2(newInputValue);
+                        setPassengerInputValue(newInputValue);
                       }}
                       id="controllable-states-demo"
                       options={traveller}
@@ -254,11 +336,11 @@ function Hero(props) {
                   <span>Trending Searches:</span>
                   <ul className="flex">
                     <li>
-                      Benguluru <i class="fa-solid fa-arrow-right"></i>{" "}
+                      Benguluru <i className="fa-solid fa-arrow-right"></i>{" "}
                       Singapure
                     </li>
                     <li>
-                      Mumbai <i class="fa-solid fa-arrow-right"></i> Bangkok
+                      Mumbai <i className="fa-solid fa-arrow-right"></i> Bangkok
                     </li>
                   </ul>
                 </div>
@@ -266,9 +348,9 @@ function Hero(props) {
               <div className="search-btn">
                 <button onClick={searchHandler}>SEARCH</button>
                 <div className="flex align-center">
-                  <i class="fa-solid fa-angles-down"></i>
+                  <i className="fa-solid fa-angles-down"></i>
                   <p>Explore More</p>
-                  <i class="fa-solid fa-angles-down"></i>
+                  <i className="fa-solid fa-angles-down"></i>
                 </div>
               </div>
             </div>
@@ -284,6 +366,7 @@ function mapStateToProps(state) {
     from: state.from,
     to: state.to,
     date: state.date,
+    returnDate: state.returnDate,
   };
 }
 

@@ -21,9 +21,12 @@ class ErrorBoundary extends React.Component {
   render() {
     if (this.state.hasError) {
       return (
-        <div>
+        <div className="error-boundry">
           <h1>Something went wrong.</h1>
-          <span>Go back to Home Page</span>
+          <p>Go back to Home Page</p>
+          <button className="pointer" onClick={this.handleClick}>
+            Click here
+          </button>
         </div>
       );
     }

@@ -1,37 +1,39 @@
-import React from "react";
-import Home from "./Home";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
-import Flight from "./Flight";
-import Header from "./Header";
-import Booking from "./Booking";
-import NotFound from "./NotFound";
-import { Provider } from "react-redux";
-import store from "../redux";
-
+import React, { useEffect } from "react";
+import Home from "./Home/Home";
+import { Route, Switch } from "react-router-dom";
+import Flight from "./FlightDetails/Flight";
+import Header from "./common/Header";
+import Booking from "./Booking/Booking";
+import { useDispatch } from "react-redux";
 import ErrorBoundry from "./ErrorBoundry";
+
 function App() {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    const ls = localStorage.getItem("flightInfo");
+    if (ls) {
+      dispatch({
+        type: "updateState",
+        payload: JSON.parse(ls),
+      });
+    }
+  }, []);
+
   return (
-    <BrowserRouter>
-      <Provider store={store}>
-        <ErrorBoundry>
-          <Header />
-          <Switch>
-            <Route path="/" exact>
-              <Home />
-            </Route>
-            <Route path="/flight">
-              <Flight />
-            </Route>
-            <Route path="/booking">
-              <Booking />
-            </Route>
-            <Route path="*">
-              <NotFound />
-            </Route>
-          </Switch>
-        </ErrorBoundry>
-      </Provider>
-    </BrowserRouter>
+    <ErrorBoundry>
+      <Header />
+      <Switch>
+        <Route path="/" exact>
+          <Home />
+        </Route>
+        <Route path="/flight">
+          <Flight />
+        </Route>
+        <Route path="/booking">
+          <Booking />
+        </Route>
+      </Switch>
+    </ErrorBoundry>
   );
 }
 

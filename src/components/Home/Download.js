@@ -1,8 +1,7 @@
-import data from "../data/data.json";
+import data from "../../data/data.json";
 
 function Download() {
   let download = data[1].download;
-  console.log(download);
   return (
     <>
       <section className="download-section">

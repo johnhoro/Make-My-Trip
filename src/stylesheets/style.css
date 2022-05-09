@@ -128,10 +128,6 @@ table {
   border-spacing: 0;
 }
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
 @import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700;800&display=swap");
 
 /* GENERAL STYLE */
@@ -164,8 +160,20 @@ table {
 .w-100 {
   width: 100%;
 }
+.w-30 {
+  width: 30%;
+}
+.w-40 {
+  width: 40%;
+}
 .w-45 {
   width: 45%;
+}
+.w-48 {
+  width: 49%;
+}
+.w-70 {
+  width: 58.3%;
 }
 .w-170 {
   width: 170px;
@@ -177,27 +185,74 @@ table {
 .pointer {
   cursor: pointer;
 }
-.padding-1 {
-  padding: 1rem;
-}
+
 .border-b {
   border-bottom: 1px solid rgb(45, 192, 140);
+}
+.border-r {
+  border-right: 1px solid hsla(0, 0%, 100%, 0.4);
 }
 .margin-t {
   margin-top: 1rem;
 }
+.margin-l {
+  margin-left: 1rem;
+}
 .margin-b {
   margin-bottom: 1rem;
 }
+.margin-b5 {
+  margin-bottom: 0.5rem;
+}
+.padding-1 {
+  padding: 1rem 0.42rem;
+}
 .padding-b {
   padding-bottom: 1rem;
+}
+.padding-l {
+  padding-left: 2rem;
+}
+
+.position-relative {
+  position: relative;
+}
+
+.position-fixed {
+  position: fixed;
+  bottom: 10px;
+  margin-left: -1rem;
+}
+
+.customRadioBtn {
+  display: inline-block;
+  cursor: pointer;
+  margin-right: 1rem;
+  margin-bottom: 2rem;
+}
+.outer {
+  width: 24px;
+  height: 24px;
+  border: 2px solid rgb(0, 140, 255);
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.inner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgb(0, 140, 255);
+  border-radius: 50%;
+  background-color: rgb(0, 140, 255);
 }
 
 body {
   font-family: "Open Sans", sans-serif;
   line-height: 1.3;
   font-size: 14px;
-  background-color: rgb(242, 242, 242);
+  background-color: rgb(229, 238, 244);
 }
 .container {
   max-width: 1200px;
@@ -216,10 +271,7 @@ body {
 
 .header {
   background-color: rgb(7, 22, 39);
-}
-
-.header-nav {
-  margin-top: 0.5rem;
+  padding: 0.5rem 0;
 }
 
 .header-nav a i {
@@ -300,7 +352,7 @@ body {
 }
 
 .hero-body {
-  margin-top: 2rem;
+  margin-top: 1.5rem;
 }
 .hero-body ul li {
   margin-right: 1rem;
@@ -329,7 +381,7 @@ body {
 }
 
 .flight-search > div {
-  padding: 1rem;
+  padding: 1rem 0.5rem 0.1rem 1rem;
 }
 .return-box span {
   font-size: 0.7rem;
@@ -359,9 +411,7 @@ body {
   font-size: 12px;
   font-weight: 600;
 }
-.red {
-  color: red;
-}
+
 .select-fare ul li {
   background-color: rgb(241, 241, 241);
   font-size: 12px;
@@ -369,6 +419,34 @@ body {
   color: rgb(74, 74, 74);
   border-radius: 4px;
   margin-right: 0.2rem;
+  cursor: pointer;
+}
+.red {
+  color: red;
+}
+
+.select-fare1 {
+  margin: 0.7rem 0;
+}
+.select-fare1 + p {
+  color: rgb(74, 74, 74);
+}
+
+.select-fare1 p {
+  font-size: 12px;
+  font-weight: 600;
+}
+.red {
+  color: red;
+}
+
+.select-fare1 ul li {
+  background-color: rgb(54, 76, 99);
+  padding: 0.5rem;
+  font-size: 12px;
+  font-weight: 600;
+  border-radius: 4px;
+  margin-right: 0.1rem;
   cursor: pointer;
 }
 
@@ -632,25 +710,23 @@ footer {
 /* FLIGHT_SECTION */
 
 .flight-header {
-  background: linear-gradient(rgb(6, 20, 36), rgb(21, 69, 123));
+  background: linear-gradient(rgb(3, 19, 32), rgb(21, 69, 123));
   padding-bottom: 1rem;
   color: white;
   padding: 1rem;
-  height: 300px;
-  position: relative;
+  height: 270px;
 }
 
 .flight-header-box ul li {
   background-color: rgb(30, 44, 57);
-  padding: 0.5rem;
-  margin-right: 1rem;
+  margin-right: 0.3rem;
+  padding: 0.2rem 0.5rem;
 }
 .flight-header-box button {
   width: 200px;
   padding: 0.5rem;
   border-radius: 40px;
   font-size: 1.2rem;
-  margin-bottom: 1rem;
   border: none;
   color: white;
   cursor: pointer;
@@ -661,12 +737,14 @@ footer {
 
 .flight-header-box ul li p {
   color: rgb(0, 140, 255);
+  font-size: 0.8rem;
+  font-weight: 700;
 }
 .flight-main-section {
   position: absolute;
   left: 0;
   right: 0;
-  margin-top: 7rem;
+  margin-top: 2rem;
 }
 
 .flight-col1 {
@@ -700,6 +778,7 @@ footer {
 .flight-col21 {
   background-color: white;
   padding: 0.5rem;
+  margin-top: 0.5rem;
 }
 
 .flight-col2 h1 {
@@ -708,11 +787,21 @@ footer {
   color: white;
   margin-bottom: 1rem;
 }
+.flight-col21 h3 {
+  color: black;
+  font-size: 1rem;
+}
 .flight-by-date {
-  border: 1px solid #e7e7e7;
-  padding: 1rem 1rem;
+  width: 92px;
+  border-left: 1px solid #e7e7e7;
+  border-right: 1px solid #e7e7e7;
   text-align: center;
   cursor: pointer;
+  background-color: white;
+}
+
+.flight-by-date p {
+  margin-bottom: 0.5rem;
 }
 .select-box {
   border-bottom: 2px solid rgb(0, 140, 255);
@@ -724,6 +813,7 @@ footer {
   padding: 0.3rem;
   border: 1px solid #e7e7e7;
   color: rgb(0, 140, 255);
+  background-color: white;
 }
 .select-flight {
   background-color: rgb(244, 244, 244);
@@ -737,6 +827,9 @@ footer {
 .all-flight {
   margin: 0.5rem 0;
   box-shadow: 0 1px 6px 0 rgb(0 0 0 / 20%);
+}
+.select-data {
+  background-color: rgba(190, 222, 249, 0.3);
 }
 
 .select-flight-box ul {
@@ -796,12 +889,59 @@ footer {
   margin-top: 1rem;
 }
 
+/* JOURNEY_BOX */
+
+.journey-info {
+  background-color: rgb(1, 33, 56);
+  padding: 1rem;
+  border-radius: 5px;
+}
+.journey-info-box {
+  color: white;
+  padding-right: 1rem;
+}
+
+.journey-info h6 {
+  margin-bottom: 1rem;
+}
+.journey-info h5 {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+.journey-info img {
+  width: 30px;
+  height: 30px;
+  margin-right: 0.7rem;
+}
+.journey-info p {
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+.journey-info span {
+  font-size: 0.7rem;
+  color: rgb(78, 171, 252);
+}
+
+.journey-info button {
+  width: 100px;
+  padding: 0.5rem;
+  border-radius: 40px;
+  font-size: 1rem;
+  margin-bottom: 1rem;
+  border: none;
+  color: white;
+  cursor: pointer;
+  font-weight: 600;
+  background-image: linear-gradient(
+    to right,
+    rgb(81, 175, 253),
+    rgb(7, 91, 243)
+  );
+  margin-top: 1rem;
+}
 /* BOOKING_SECTION */
 .booking-section {
-  position: absolute;
-  left: 0;
-  right: 0;
-  margin-top: 2rem;
+  margin-top: 1rem;
   color: black;
 }
 
@@ -828,7 +968,7 @@ footer {
 
 .booking-col1 {
   background-color: white;
-  width: 75%;
+  width: 74%;
   padding: 0.5rem;
 }
 
@@ -934,6 +1074,29 @@ footer {
   margin: 0.5rem 0;
 }
 
+.customRadioBtn-box {
+  display: inline-block;
+  cursor: pointer;
+  margin-right: 0.5rem;
+}
+.outer-box {
+  width: 10px;
+  height: 10px;
+  border: 2px solid rgb(0, 140, 255);
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.inner-box {
+  width: 4px;
+  height: 4px;
+  border: 1px solid rgb(0, 140, 255);
+  border-radius: 50%;
+  background-color: rgb(0, 140, 255);
+}
+
 .booking-col2 {
   width: 22%;
   background-color: white;
@@ -953,4 +1116,18 @@ footer {
 }
 .total-fare p {
   font-size: 1.2rem;
+}
+
+/* ERROR_BOUNDRY */
+
+.error-boundry {
+  margin: 2rem auto;
+  text-align: center;
+  justify-content: center;
+}
+.error-boundry h1 {
+  font-size: 1.5rem;
+}
+.error-boundry p {
+  margin: 0.3rem;
 }
